@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 OMP_NUM_THREADS=1
 
-OUTPUT_DIR='train_results/vit_b_pd_ft_weights'
+OUTPUT_DIR='test_results/vit_b_pd_ft_weights_19e'
 DATA_PATH='pd_data'
-MODEL_PATH='vit_b_k710_dl_from_giant.pth'
+# MODEL_PATH='vit_b_k710_dl_from_giant.pth'
 # MODEL_PATH='train_results/vit_b_pd_ft/checkpoint-best.pth'
+MODEL_PATH='train_results/vit_b_pd_ft_weights/checkpoint-19.pth'
 
 python run_class_finetuning.py \
         --model vit_base_patch16_224 \
@@ -34,4 +35,5 @@ python run_class_finetuning.py \
         --test_num_crop 3 \
         --mixup 0 \
         --cutmix 0 \
-        --smoothing 0
+        --smoothing 0 \
+        --eval

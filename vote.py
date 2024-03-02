@@ -40,5 +40,5 @@ def cal_CM(res):
         
 
 if __name__ == '__main__':
-    res = load_data('test_results/vit_b_pd_ft/0.txt')
+    res = load_data('/root/proj/VideoMAEv2/test_results/vit_b_pd_ft_weights_19e/0.txt')
     cal_CM(res)

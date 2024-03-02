@@ -16,7 +16,7 @@ def drawdis(labels, preds):
         axes[i].bar(v, c, width=0.5, align='center')
         for a, b in zip(v, c):
             axes[i].text(a, b, b, ha='center', va='bottom')
-        axes[i].axis(ymin=0, ymax=50)
+        axes[i].axis(ymin=0, ymax=100)
         axes[i].set_ylabel('Counts')
         axes[i].set_xlabel('UPDRS')
         axes[i].set_title(A[i])
