@@ -35,5 +35,4 @@ python run_class_finetuning.py \
         --eval \
         --mixup 0 \
         --cutmix 0 \
-        --cutmix_minmax 0 \
         --smoothing 0
