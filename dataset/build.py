@@ -142,7 +142,26 @@ def build_dataset(is_train, test_mode, args):
             new_width=320,
             args=args)
         nb_classes = 710
-
+    elif args.data_set == 'PD':
+        dataset = VideoClsDataset(
+                anno_path=anno_path,
+                data_root=args.data_root,
+                mode=mode,
+                clip_len=args.num_frames,
+                frame_sample_rate=args.sampling_rate,
+                num_segment=1,
+                test_num_segment=args.test_num_segment,
+                test_num_crop=args.test_num_crop,
+                num_crop=1 if not test_mode else 3,
+                keep_aspect_ratio=True,
+                crop_size=args.input_size,
+                short_side_size=args.short_side_size,
+                new_height=256,
+                new_width=320,
+                # sparse_sample=False,
+                args=args)
+        nb_classes = 3
+    
     elif args.data_set == 'SSV2':
         dataset = RawFrameClsDataset(
             anno_path=anno_path,
@@ -162,7 +181,7 @@ def build_dataset(is_train, test_mode, args):
             start_idx=args.start_idx,
             args=args)
 
-        nb_classes = 174
+        nb_classes = 3
 
     elif args.data_set == 'UCF101':
         dataset = VideoClsDataset(
