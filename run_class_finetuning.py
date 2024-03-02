@@ -779,13 +779,13 @@ def main(args, ds_init):
 
     print("criterion = %s" % str(criterion))
 
-    utils.auto_load_model(
-        args=args,
-        model=model,
-        model_without_ddp=model_without_ddp,
-        optimizer=optimizer,
-        loss_scaler=loss_scaler,
-        model_ema=model_ema)
+    # utils.auto_load_model(
+    #     args=args,
+    #     model=model,
+    #     model_without_ddp=model_without_ddp,
+    #     optimizer=optimizer,
+    #     loss_scaler=loss_scaler,
+    #     model_ema=model_ema)
     if args.validation:
         test_stats = validation_one_epoch(data_loader_val, model, device)
         print(
