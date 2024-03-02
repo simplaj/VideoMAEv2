@@ -32,7 +32,6 @@ python run_class_finetuning.py \
         --epochs 20 \
         --test_num_segment 2 \
         --test_num_crop 3 \
-        --eval \
         --mixup 0 \
         --cutmix 0 \
         --smoothing 0
