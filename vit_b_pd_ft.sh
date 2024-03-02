@@ -3,8 +3,8 @@ OMP_NUM_THREADS=1
 
 OUTPUT_DIR='/root/autodl-tmp/train_results/vit_b_pd_ft_weight_lr_240302'
 DATA_PATH='pd_data'
-# MODEL_PATH='vit_b_k710_dl_from_giant.pth'
-MODEL_PATH='train_results/vit_b_pd_ft/checkpoint-best.pth'
+MODEL_PATH='vit_b_k710_dl_from_giant.pth'
+# MODEL_PATH='train_results/vit_b_pd_ft/checkpoint-best.pth'
 # MODEL_PATH='train_results/vit_b_pd_ft_weights/checkpoint-19.pth'
 
 python run_class_finetuning.py \
