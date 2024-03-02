@@ -775,7 +775,7 @@ def main(args, ds_init):
     elif args.smoothing > 0.:
         criterion = LabelSmoothingCrossEntropy(smoothing=args.smoothing)
     else:
-        weights = torch.tensor([1, 2, 1])
+        weights = torch.tensor([1, 2, 1]).to(device)
         criterion = torch.nn.CrossEntropyLoss(weight=weights)
 
     print("criterion = %s" % str(criterion))
