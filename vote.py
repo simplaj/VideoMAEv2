@@ -41,7 +41,7 @@ def load_data(path):
         counter = Counter(reversed(sorted(g_res[k]['preds'])))
         g_res[k]['vote'] = counter.most_common(1)[0][0]
     print(g_res)
-    return res
+    return g_res
         
 
 def cal_CM(res):
@@ -57,5 +57,5 @@ def cal_CM(res):
         
 
 if __name__ == '__main__':
-    res = load_data('/root/proj/VideoMAEv2/test_results/vit_b_pd_ft_weights_19e/0.txt')
+    res = load_data('/root/proj/VideoMAEv2/test_results/vit_b_pd_ft_weight_lr_240302/0.txt')
     cal_CM(res)
