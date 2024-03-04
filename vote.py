@@ -2,6 +2,7 @@ import os
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from stats import *
+from collections import Counter
 
 
 def load_data(path):
@@ -22,13 +23,29 @@ def load_data(path):
                 'preds': [int(preds)],
                 'labels': int(labels),
             }
+    for k in res:
+        counter = Counter(reversed(sorted(res[k]['preds'])))
+        res[k]['vote'] = counter.most_common(1)[0][0]
     #     print(idx, logits, preds, labels)
-    # print(res)
+    g_res = {}
+    for k in res:
+        key = k[:-2]
+        if key not in g_res:
+            g_res[key] = {
+                'preds': [res[k]['vote']],
+                'labels': res[k]['labels']
+            }
+        else:
+            g_res[key]['preds'].append(res[k]['vote'])
+    for k in g_res:
+        counter = Counter(reversed(sorted(g_res[k]['preds'])))
+        g_res[k]['vote'] = counter.most_common(1)[0][0]
+    print(g_res)
     return res
         
 
 def cal_CM(res):
-    pred_label = np.array([[res[x]['preds'][0], res[x]['labels']] for x in res])
+    pred_label = np.array([[res[x]['vote'], res[x]['labels']] for x in res])
     preds = pred_label[:, 0]
     labels = pred_label[:, 1]
     cm = confusion_matrix(labels, preds)
