@@ -51,14 +51,19 @@ def rechoose(data):
     X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.2, random_state=42, stratify=y_temp)
     [print(np.sum(x=='0'),np.sum(x=='1'),np.sum(x=='2')) for x in [y_train, y_val, y_test]]
     with open('train.csv', 'w') as file:
+        lines = []
         for data, label in zip(X_train, y_train):
             for i in range(6):
-                file.write(f'{data}_{i}.mp4 {label}\n')
+                lines.append(f'{data}_{i}.mp4 {label}\n')
+        random.shuffle(lines)
+        file.writelines(lines)
     with open('val.csv', 'w') as file:
+        lines = []
         for data, label in zip(X_val, y_val):
             for i in range(6):
                 file.write(f'{data}_{i}.mp4 {label}\n')
     with open('test.csv', 'w') as file:
+        lines = []
         for data, label in zip(X_test, y_test):
             for i in range(6):
                 file.write(f'{data}_{i}.mp4 {label}\n')
