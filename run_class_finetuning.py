@@ -788,7 +788,8 @@ def main(args, ds_init):
     #     loss_scaler=loss_scaler,
     #     model_ema=model_ema)
     if args.validation:
-        test_stats = validation_one_epoch(data_loader_val, model, device)
+        val_file = os.path.join(args.output_dir, 'val' + str(global_rank) + '.txt')
+        test_stats = validation_one_epoch(data_loader_val, model, device, val_file)
         print(
             f"{len(dataset_val)} val images: Top-1 {test_stats['acc1']:.2f}%, Top-5 {test_stats['acc5']:.2f}%, loss {test_stats['loss']:.4f}"
         )
@@ -852,7 +853,8 @@ def main(args, ds_init):
                     epoch=epoch,
                     model_ema=model_ema)
         if data_loader_val is not None:
-            test_stats = validation_one_epoch(data_loader_val, model, device)
+            val_file = os.path.join(args.output_dir, 'val' + str(global_rank) + '.txt')
+            test_stats = validation_one_epoch(data_loader_val, model, device, val_file)
             print(
                 f"Accuracy of the network on the {len(dataset_val)} val images: {test_stats['acc1']:.2f}%"
             )

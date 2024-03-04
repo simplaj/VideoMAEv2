@@ -176,7 +176,7 @@ def train_one_epoch(model: torch.nn.Module,
 
 
 @torch.no_grad()
-def validation_one_epoch(data_loader, model, device):
+def validation_one_epoch(data_loader, model, device, file):
     criterion = torch.nn.CrossEntropyLoss()
 
     metric_logger = utils.MetricLogger(delimiter="  ")
@@ -184,10 +184,12 @@ def validation_one_epoch(data_loader, model, device):
 
     # switch to evaluation mode
     model.eval()
+    val_result = []
 
     for batch in metric_logger.log_every(data_loader, 10, header):
         images = batch[0]
         target = batch[1]
+        ids = batch[2]
         images = images.to(device, non_blocking=True)
         target = target.to(device, non_blocking=True)
 
@@ -195,6 +197,15 @@ def validation_one_epoch(data_loader, model, device):
         with torch.cuda.amp.autocast():
             output = model(images)
             loss = criterion(output, target)
+            
+        for i in range(output.size(0)):
+            string = "{} {} {}\n".format(
+                ids[i], str(output.data[i].cpu().numpy().tolist()),
+                str(int(target[i].cpu().numpy())),
+                # str(int(chunk_nb[i].cpu().numpy())),
+                # str(int(split_nb[i].cpu().numpy()))
+                )
+            val_result.append(string)
 
         acc1, acc5 = accuracy(output, target, topk=(1, 2))
 
@@ -202,6 +213,14 @@ def validation_one_epoch(data_loader, model, device):
         metric_logger.update(loss=loss.item())
         metric_logger.meters['acc1'].update(acc1.item(), n=batch_size)
         metric_logger.meters['acc5'].update(acc5.item(), n=batch_size)
+        
+    if not os.path.exists(file):
+        os.mknod(file)
+    with open(file, 'w') as f:
+        f.write("{}, {}\n".format(acc1, acc5))
+        for line in val_result:
+            f.write(line)
+            
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print(
