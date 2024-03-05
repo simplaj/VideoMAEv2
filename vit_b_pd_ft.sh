@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 OMP_NUM_THREADS=1
 
-OUTPUT_DIR='/root/autodl-tmp/train_results/v2/vit_b_pd_ft_data_7e-4_lr_240304'
-# OUTPUT_DIR='test_results/vit_b_pd_ft_weight_7e-4_lr_240304_19e'
-DATA_PATH='pd_data'
+OUTPUT_DIR='/root/autodl-tmp/train_results/v2/vit_b_mixup_fold0_240305'
+# OUTPUT_DIR='test_results/vit_b_pd_ft_random_7e-4_lr_240304_9e'
+DATA_PATH='pd_data/0'
 MODEL_PATH='vit_b_k710_dl_from_giant.pth'
-# MODEL_PATH='/root/autodl-tmp/train_results/v2/vit_b_pd_ft_weight_7e-4_lr_240304/checkpoint-19.pth'
+# MODEL_PATH='/root/autodl-tmp/train_results/v2/vit_b_pd_ft_random_7e-4_lr_240304/checkpoint-9.pth'
 # MODEL_PATH='train_results/vit_b_pd_ft_weights/checkpoint-19.pth'
 
 python run_class_finetuning.py \
@@ -34,7 +34,7 @@ python run_class_finetuning.py \
         --epochs 20 \
         --test_num_segment 2 \
         --test_num_crop 3 \
-        --mixup 0 \
-        --cutmix 0 \
-        --smoothing 0 \
+        # --mixup 0 \
+        # --cutmix 0 \
+        # --smoothing 0 \
         # --eval
