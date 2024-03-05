@@ -91,11 +91,11 @@ if __name__ == '__main__':
     data = video_read(video_path)
     data = data.unsqueeze(0)
     with torch.no_grad():
-        output = model(data)
-        print(output)
-    if export:
-        torch.onnx.export(
-            model,
-            data,
-            'videomaev2.onnx'
-        )
+        output = model.forward_features(data)
+        print(output.shape)
+    # if export:
+    #     torch.onnx.export(
+    #         model,
+    #         data,
+    #         'videomaev2.onnx'
+    #     )
